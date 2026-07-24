@@ -1,4 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
+from django.db import DataError
+
 from dataentry.models import Student
 import csv
 
@@ -106,195 +108,143 @@ import csv
 
 ##########################################################################################
 ##########################################################################################
+# Import data to any model.
 
+# Command run karne ka syntax:
+# python manage.py importdata file_path model_name
 
-# Import data to any model
-# proposed command - python manage.py importdata file_path model_name
+# CSV file ko read karne ke liye csv module import kar rahe hain.
 import csv
+
+# Django ke installed apps aur unke models ko dynamically access karne ke liye apps import kar rahe hain.
 from django.apps import apps
+
+# Custom management command banane aur custom errors raise karne ke liye import kar rahe hain.
 from django.core.management.base import BaseCommand, CommandError
 
 
+# Command class custom Django management command ko define karti hai.
 class Command(BaseCommand):
 
-    # help attribute command ki short description provide karta hai.
-    # Agar hum:
-    # python manage.py help <command_name>
-    # run karein, to ye description terminal me display hoti hai.
+    # Command ki short description define kar rahe hain.
+    # Agar hum "python manage.py help importdata" chalaye,
+    # to ye description terminal me dikhai degi.
     help = "Import data from csv file"
 
-    # add_arguments() command line se input lene ke liye use hota hai.
-    #
-    # parser:
-    # Django dwara provide kiya gaya ArgumentParser object hai.
-    # Iska kaam command line arguments ko define aur validate karna hota hai.
+    # Command line arguments define karne ke liye ye method use hota hai.
     def add_arguments(self, parser):
 
-        # file_path ek positional argument hai.
-        #
-        # Example:
-        # python manage.py importcsv students.csv Student
-        #
-        # Yaha students.csv file_path me store ho jayega.
+        # User se CSV file ka path command line ke through receive karte hain.
         parser.add_argument(
+
+            # CSV file ka positional argument define kar rahe hain.
             'file_path',
+
+            # Input string type ka hona chahiye.
             type=str,
+
+            # Help message display karne ke liye.
             help="Path to the csv file:"
         )
 
-        # model_name doosra positional argument hai.
-        #
-        # Example:
-        # python manage.py importcsv students.csv Student
-        #
-        # Yaha Student model_name me store ho jayega.
+        # User se model ka naam command line ke through receive karte hain.
         parser.add_argument(
+
+            # Model name positional argument define kar rahe hain.
             'model_name',
+
+            # Input string type ka hona chahiye.
             type=str,
+
+            # Help message display karne ke liye.
             help="Name of the model"
         )
 
-    # handle() custom management command ka main execution method hai.
-    #
-    # Jab bhi command run hoti hai,
-    # Django automatically isi function ko call karta hai.
-    #
-    # *args
-    # Extra positional arguments receive karta hai.
-    #
-    # **kwargs
-    # add_arguments() ke saare arguments dictionary ke form me receive hote hain.
+    # Ye function command execute hone par automatically call hota hai.
     def handle(self, *args, **kwargs):
 
-        # kwargs dictionary se CSV file ka path nikal rahe hain.
-        #
-        # Example:
-        # kwargs = {
-        #     "file_path": "students.csv",
-        #     "model_name": "Student"
-        # }
+        # kwargs dictionary se CSV file ka path retrieve kar rahe hain.
         file_path = kwargs['file_path']
 
-        # kwargs dictionary se model ka naam retrieve kar rahe hain.
+        # kwargs dictionary se model name retrieve karke uska first letter capital kar rahe hain.
         model_name = kwargs['model_name'].capitalize()
 
         # Initially model variable ko None assign kar rahe hain.
-        #
-        # Agar baad me model mil jata hai,
-        # to isi variable me model class store hogi.
         model = None
 
-        # apps.get_app_configs()
-        #
-        # Ye project ke andar installed saare apps ki list return karta hai.
-        #
-        # Example:
-        #
-        # dataentry
-        # accounts
-        # blog
-        # inventory
-        #
-        # Hum ek-ek app me check karenge
-        # ki required model exist karta hai ya nahi.
+        # Installed apps ke upar loop chala rahe hain.
         for app_config in apps.get_app_configs():
 
             try:
 
-                # apps.get_model()
-                #
-                # Ye dynamically model ko retrieve karta hai.
-                #
-                # Parameters:
-                #
-                # app_config.label
-                # Current app ka naam.
-                #
-                # model_name
-                # User dwara command line se diya gaya model name.
-                #
-                # Example:
-                # apps.get_model("dataentry", "Student")
-                #
-                # Agar model mil gaya,
-                # to model variable me store ho jayega.
+                # Current app ke andar required model search kar rahe hain.
                 model = apps.get_model(
+
+                    # Current app ka label pass kar rahe hain.
                     app_config.label,
+
+                    # User dwara diya gaya model name pass kar rahe hain.
                     model_name
                 )
 
-                # Model milte hi loop stop kar dete hain.
+                # Agar model mil gaya to loop yahin stop kar do.
                 break
 
             except LookupError:
 
-                # Agar current app me model nahi mila,
-                # to LookupError raise hota hai.
-                #
-                # continue ka matlab:
-                # Next app check karo.
+                # Agar current app me model nahi mila to next app check karo.
                 continue
 
-        # Agar loop complete hone ke baad bhi
-        # model None hai,
-        # iska matlab kisi bhi app me model nahi mila.
+        # Agar model abhi bhi None hai to iska matlab model nahi mila.
         if not model:
 
-            # CommandError Django management command ka
-            # built-in exception hai.
-            #
-            # Ye terminal me proper error message show karta hai.
+            # User ko proper error message dikhane ke liye CommandError raise kar rahe hain.
             raise CommandError(
+
+                # Error message dynamically model name ke saath display hoga.
                 f'Model "{model_name}" not found in any app.'
             )
 
+        # Model ke saare field names retrieve kar rahe hain.
+        # "id" field ko ignore kar rahe hain kyunki database automatically generate karta hai.
+        model_fields = [
+            field.name
+            for field in model._meta.fields
+            if field.name != "id"
+        ]
+
         # CSV file ko read mode me open kar rahe hain.
-        #
-        # with open ka benefit:
-        # File automatically close ho jayegi,
-        # chahe error aaye ya na aaye.
         with open(file_path, 'r') as file:
 
-            # csv.reader()
-            #
-            # CSV file ko line by line read karta hai.
-            #
-            # Har row ek LIST return karta hai.
-            #
-            # Example:
-            #
-            # CSV
-            # -------------
-            # 1,Saurabh,29
-            #
-            # Output
-            #
-            # ['1','Saurabh','29']
+            # CSV file ko dictionary format me read karne ke liye DictReader use kar rahe hain.
             reader = csv.DictReader(file)
 
-            # CSV ki har row ko ek-ek karke read karenge.
+            # CSV file ke header names retrieve kar rahe hain.
+            csv_header = reader.fieldnames
+
+            # Check kar rahe hain ki CSV ke headers aur model ke fields match karte hain ya nahi.
+            if csv_header != model_fields:
+
+                # Agar match nahi karte to DataError raise kar do.
+                raise DataError(
+                    f"CSV file does not match with the {model_name} table fields"
+                )
+
+            # CSV ki har row ko ek-ek karke read kar rahe hain.
             for row in reader:
 
-                # Agar row list hai,
-                # to **row work nahi karega.
-                #
-                # ** sirf dictionary ke saath use hota hai.
-                #
-                # Is code ko sahi chalane ke liye
-                # csv.DictReader() use karna chahiye.
+                # Current row ki values ko unpack karke database me new record create kar rahe hain.
                 model.objects.create(**row)
 
-        # Agar saara data successfully import ho gaya,
-        # to green color me success message display hoga.
+        # Terminal me success message display kar rahe hain.
         self.stdout.write(
 
-            # self.style.SUCCESS()
-            #
-            # Success message ko green color me print karta hai.
+            # Success message ko green color me print karne ke liye SUCCESS style use kar rahe hain.
             self.style.SUCCESS(
+
+                # Final success message.
                 'Data imported from csv successfully!'
             )
         )
-
 ##########################################################################################################
 ##########################################################################################################
