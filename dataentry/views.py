@@ -1,9 +1,10 @@
 from django.conf import settings
-from django.shortcuts import render, redirect
-from .utils import get_all_custom_models
-from uploads.models import Upload
-from django.core.management import call_command
 from django.contrib import messages
+from django.shortcuts import render, redirect
+from .utils import get_all_custom_models, check_csv_errors
+from uploads.models import Upload
+from .tasks import import_data_task
+
 # Create your views here.
 
 # Ye view user se CSV file lekar uska data database me import karta hai.
@@ -33,14 +34,26 @@ def import_data(request):
         # Base directory aur relative file path ko jodkar complete file path banao.
         file_path = base_url + relative_path
 
-        # Custom management command ko call karke CSV data import karo.
+        #check for csv errors
         try:
-            call_command('importdata', file_path, model_name)
-            messages.success(request, "Data imported successfully")
-        # Agar import ke time koi error aaye to usse raise kar do.
+            check_csv_errors(file_path, model_name)
         except Exception as e:
             messages.error(request, str(e))
+            return redirect("import-data")
+        #handle the import data task
+        import_data_task.delay(file_path, model_name)
 
+        #show the messages to the user
+        messages.success(request, "Your data is being imported, you will be notified once it is done")
+##################################################################################
+##########################################Define this code in Celery taks#########
+        # try:                                                                   #
+        #     call_command('importdata', file_path, model_name)                  #
+        #     messages.success(request, "Data imported successfully")            #
+        # # Agar import ke time koi error aaye to usse raise kar do.             #
+        # except Exception as e:                                                 #
+        #     messages.error(request, str(e))                                    #
+##################################################################################
         # Import complete hone ke baad user ko import page par redirect karo.
         return redirect("import-data")
 
