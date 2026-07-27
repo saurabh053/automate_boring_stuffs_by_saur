@@ -1,6 +1,6 @@
 import csv
 import datetime
-
+from dataentry.utils import generate_csv_file
 from django.core.management.base import BaseCommand
 from dataentry.models import Student
 import datetime
@@ -84,11 +84,8 @@ class Command(BaseCommand):
         # Retrieve all records from the model's database table.
         data = model.objects.all()
 
-        # Generate the current timestamp to create a unique filename.
-        timestamp = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-
-        # Create the CSV filename using model name and timestamp.
-        file_path = f"exported_{model_name}_data_{timestamp}.csv"
+        # generate csv filepath
+        file_path = generate_csv_file(model_name)
 
         # Open the CSV file in write mode.
         # 'with' automatically closes the file after use.

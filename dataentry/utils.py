@@ -1,5 +1,8 @@
 # we define helper function here
 import csv
+import datetime
+import os
+
 from django.core.mail import EmailMessage
 from django.conf import settings
 from django.apps import apps
@@ -142,10 +145,26 @@ def check_csv_errors(file_path, model_name):
 
     return model
 
-def send_email_notification(mail_subject, message, to_email):
+def send_email_notification(mail_subject, message, to_email, attachment=None):
     try:
         from_email = settings.DEFAULT_FROM_EMAIL
         mail = EmailMessage(mail_subject, message, from_email, to=[to_email])
+        if attachment is not None:
+            mail.attach_file(attachment)
         mail.send()
     except Exception as e:
         raise e
+
+
+def generate_csv_file(model_name):
+
+    # Generate the current timestamp to create a unique filename.
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+
+    export_dir = "exported_data"
+
+    # Create the CSV filename using model name and timestamp.
+    file_name = f"exported_{model_name}_data_{timestamp}.csv"
+    file_path = os.path.join(settings.MEDIA_ROOT, export_dir, file_name)
+    print("file_path===>", file_path)
+    return file_path

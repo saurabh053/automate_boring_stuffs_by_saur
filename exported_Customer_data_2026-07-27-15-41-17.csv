@@ -1,0 +1,148 @@
+id,customer_name,country
+1,Sarah Johnson,United States
+2,John Smith,Canada
+3,Maria Garcia,Spain
+4,Li Wei,China
+5,Alessandro Rossi,Italy
+6,Yukiko Tanaka,Japan
+7,Anna Petrov,Russia
+8,Ahmed Khan,Pakistan
+9,Isabella Santos,Brazil
+10,Leila Ahmed,Egypt
+11,Emily Wilson,Australia
+12,Diego Fernandez,Argentina
+13,Sophie Dupont,France
+14,Ravi Patel,India
+15,Carlos Rodriguez,Mexico
+16,Luisa Oliveira,Portugal
+17,Hans Muller,Germany
+18,Elena Popova,Russia
+19,Mehmet,Turkey
+20,Chen Wei,China
+21,Amir Khan,Pakistan
+22,Marta Lopez,Spain
+23,Olga Petrova,Russia
+24,Luca Rossi,Italy
+25,Yusuke Tanaka,Japan
+26,Ana Silva,Brazil
+27,Mohamed El-Masry,Egypt
+28,Emma Johnson,United States
+29,Sophia Smith,Canada
+30,Pablo Garcia,Spain
+31,Jing Wei,China
+32,Antonio Rossi,Italy
+33,Haruki Tanaka,Japan
+34,Elena Petrov,Russia
+35,Rajesh Patel,India
+36,Maria Fernanda,South Africa
+37,Lara Muller,Germany
+38,Mateusz Nowak,Poland
+39,Mila Jovanovi,Serbia
+40,Anna Kowalski,Poland
+41,Ahmet,Turkey
+42,Fernanda Silva,Brazil
+43,Elsa Andersen,Denmark
+44,Ricardo Hernandez,Mexico
+45,Alice Johnson,United States
+46,Liam Smith,Canada
+47,Isabel Goncalves,Portugal
+48,Andrei Ivanov,Russia
+49,Seo-jun Kim,South Korea
+50,Sarah Johnson,United States
+51,John Smith,Canada
+52,Maria Garcia,Spain
+53,Li Wei,China
+54,Alessandro Rossi,Italy
+55,Yukiko Tanaka,Japan
+56,Anna Petrov,Russia
+57,Ahmed Khan,Pakistan
+58,Isabella Santos,Brazil
+59,Leila Ahmed,Egypt
+60,Emily Wilson,Australia
+61,Diego Fernandez,Argentina
+62,Sophie Dupont,France
+63,Ravi Patel,India
+64,Carlos Rodriguez,Mexico
+65,Luisa Oliveira,Portugal
+66,Hans Muller,Germany
+67,Elena Popova,Russia
+68,Mehmet,Turkey
+69,Chen Wei,China
+70,Amir Khan,Pakistan
+71,Marta Lopez,Spain
+72,Olga Petrova,Russia
+73,Luca Rossi,Italy
+74,Yusuke Tanaka,Japan
+75,Ana Silva,Brazil
+76,Mohamed El-Masry,Egypt
+77,Emma Johnson,United States
+78,Sophia Smith,Canada
+79,Pablo Garcia,Spain
+80,Jing Wei,China
+81,Antonio Rossi,Italy
+82,Haruki Tanaka,Japan
+83,Elena Petrov,Russia
+84,Rajesh Patel,India
+85,Maria Fernanda,South Africa
+86,Lara Muller,Germany
+87,Mateusz Nowak,Poland
+88,Mila Jovanovi,Serbia
+89,Anna Kowalski,Poland
+90,Ahmet,Turkey
+91,Fernanda Silva,Brazil
+92,Elsa Andersen,Denmark
+93,Ricardo Hernandez,Mexico
+94,Alice Johnson,United States
+95,Liam Smith,Canada
+96,Isabel Goncalves,Portugal
+97,Andrei Ivanov,Russia
+98,Seo-jun Kim,South Korea
+99,Sarah Johnson,United States
+100,John Smith,Canada
+101,Maria Garcia,Spain
+102,Li Wei,China
+103,Alessandro Rossi,Italy
+104,Yukiko Tanaka,Japan
+105,Anna Petrov,Russia
+106,Ahmed Khan,Pakistan
+107,Isabella Santos,Brazil
+108,Leila Ahmed,Egypt
+109,Emily Wilson,Australia
+110,Diego Fernandez,Argentina
+111,Sophie Dupont,France
+112,Ravi Patel,India
+113,Carlos Rodriguez,Mexico
+114,Luisa Oliveira,Portugal
+115,Hans Muller,Germany
+116,Elena Popova,Russia
+117,Mehmet,Turkey
+118,Chen Wei,China
+119,Amir Khan,Pakistan
+120,Marta Lopez,Spain
+121,Olga Petrova,Russia
+122,Luca Rossi,Italy
+123,Yusuke Tanaka,Japan
+124,Ana Silva,Brazil
+125,Mohamed El-Masry,Egypt
+126,Emma Johnson,United States
+127,Sophia Smith,Canada
+128,Pablo Garcia,Spain
+129,Jing Wei,China
+130,Antonio Rossi,Italy
+131,Haruki Tanaka,Japan
+132,Elena Petrov,Russia
+133,Rajesh Patel,India
+134,Maria Fernanda,South Africa
+135,Lara Muller,Germany
+136,Mateusz Nowak,Poland
+137,Mila Jovanovi,Serbia
+138,Anna Kowalski,Poland
+139,Ahmet,Turkey
+140,Fernanda Silva,Brazil
+141,Elsa Andersen,Denmark
+142,Ricardo Hernandez,Mexico
+143,Alice Johnson,United States
+144,Liam Smith,Canada
+145,Isabel Goncalves,Portugal
+146,Andrei Ivanov,Russia
+147,Seo-jun Kim,South Korea
