@@ -1,33 +1,36 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
-<div class="container" style="padding: 50px;margin-top: 5%;">
+<div class="container" style="padding: 50px; margin-top: 5%;">
+
     {% if user.is_authenticated %}
+
     <h2 class="text-center">Automate The Boring Stuff With Django</h2>
+
     <div class="row pt-5">
-        <!-- Import data -->
+        <!-- Import Data -->
         <div class="col-md-4">
             <a href="{% url 'import-data' %}" class="text-decoration-none text-dark">
                 <div class="card alert-primary shadow">
                     <div class="card-header">
-                    <h4>Import Data</h4>
+                        <h4>Import Data</h4>
                     </div>
                     <div class="card-body">
-                    <p class="card-text">Imports data from CSV file to any table.</p>
+                        <p class="card-text">Import data from a CSV file into any database table.</p>
                     </div>
                 </div>
             </a>
         </div>
+
         <!-- Export Data -->
         <div class="col-md-4">
             <a href="{% url 'export_data' %}" class="text-decoration-none text-dark">
                 <div class="card alert-success shadow">
                     <div class="card-header">
-                    <h4>Export Data</h4>
+                        <h4>Export Data</h4>
                     </div>
                     <div class="card-body">
-                    <p class="card-text">Exports data from a specific table to a CSV file.</p>
+                        <p class="card-text">Export data from a selected table to a CSV file.</p>
                     </div>
                 </div>
             </a>
@@ -38,10 +41,10 @@
             <a href="#" class="text-decoration-none text-dark">
                 <div class="card alert-danger shadow">
                     <div class="card-header">
-                    <h4>Bulk Emails</h4>
+                        <h4>Bulk Emails</h4>
                     </div>
                     <div class="card-body">
-                    <p class="card-text">Sends bulk emails to users</p>
+                        <p class="card-text">Send bulk emails to users.</p>
                     </div>
                 </div>
             </a>
@@ -54,37 +57,38 @@
             <a href="#" class="text-decoration-none text-dark">
                 <div class="card alert-warning shadow">
                     <div class="card-header">
-                    <h4>Email Tracking</h4>
+                        <h4>Email Tracking</h4>
                     </div>
                     <div class="card-body">
-                    <p class="card-text">Tracks emails and shows open and click rate</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <!-- Compress Images -->
-        <div class="col-md-4">
-            <a href="#" class="text-decoration-none text-dark">
-                <div class="card alert-danger shadow">
-                    <div class="card-header">
-                    <h4>Compress Images</h4>
-                    </div>
-                    <div class="card-body">
-                    <p class="card-text">Compresses Image files and reduces the size</p>
+                        <p class="card-text">Track email opens and click rates.</p>
                     </div>
                 </div>
             </a>
         </div>
 
-        <!-- Web Scraping -->
+        <!-- Compress Images -->
+        <div class="col-md-4">
+            <a href="#" class="text-decoration-none text-dark">
+                <div class="card alert-danger shadow">
+                    <div class="card-header">
+                        <h4>Compress Images</h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Compress image files and reduce their size.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Stock Market Analysis -->
         <div class="col-md-4">
             <a href="#" class="text-decoration-none text-dark">
                 <div class="card alert-warning shadow">
                     <div class="card-header">
-                    <h4>Stock Market Analysis</h4>
+                        <h4>Stock Market Analysis</h4>
                     </div>
                     <div class="card-body">
-                    <p class="card-text">Stock Market Analysis - Web Scraping</p>
+                        <p class="card-text">Analyze stock market data using web scraping.</p>
                     </div>
                 </div>
             </a>
@@ -95,17 +99,18 @@
 
     <div class="home-info">
         <h2 class="text-center">Automate the Boring Stuff with Django</h2>
+
         <p class="lead text-center text-muted">
-            "Automate the Boring Stuff with Django" is a project-based course to build various tools using the Django framework to automate routine tasks, ranging from data processing to scheduling, and more.
-            By leveraging Django's capabilities, users can streamline their workflows, saving time and enhancing productivity.
+            "Automate the Boring Stuff with Django" is a project-based application that helps automate routine tasks such as data import/export, email automation, image processing, web scraping, and more. By leveraging Django's capabilities, users can streamline their workflows, save time, and improve productivity.
         </p>
 
-        <div style="display: flex; justify-content: center;">
-            <a href="{% url 'login' %}" class="btn btn-primary">LOGIN</a>
-            &nbsp;<a href="{% url 'register' %}" class="btn btn-success">REGISTER</a>
+        <div class="text-center">
+            <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+            <a href="{% url 'register' %}" class="btn btn-success ms-2">Register</a>
         </div>
     </div>
 
     {% endif %}
+
 </div>
 {% endblock %}
